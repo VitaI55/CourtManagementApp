@@ -1,0 +1,10 @@
+Model\Dao\DBConnect.class
+Model\ServiceOperations.class
+Controller\CreateHandler.class
+Controller\UpdateHandler.class
+Controller\UserService.class
+Model\Entity.class
+Model\Judge.class
+Model\Case.class
+Model\Dao\CaseDao.class
+Model\Dao\JudgeDao.class
