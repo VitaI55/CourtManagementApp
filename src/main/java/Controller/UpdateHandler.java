@@ -2,6 +2,8 @@ package Controller;
 
 import Model.Dao.JudgeDao;
 import Model.Judge;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import java.sql.SQLException;
 
 @WebServlet("/update")
 public class UpdateHandler extends HttpServlet {
+    private Logger logger1 = LogManager.getLogger(UpdateHandler.class);
     private final JudgeDao judgeDao = new JudgeDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,7 +38,7 @@ public class UpdateHandler extends HttpServlet {
         try {
             judgeDao.updateJudge(updatedJudge);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger1.trace("Unable to update because of: " + e);
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("/listUser");
         dispatcher.forward(req,resp);

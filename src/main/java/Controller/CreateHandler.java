@@ -2,6 +2,8 @@ package Controller;
 
 import Model.Dao.JudgeDao;
 import Model.Judge;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import java.sql.SQLException;
 
 @WebServlet("/create")
 public class CreateHandler extends HttpServlet {
+    private Logger logger2 = LogManager.getLogger(CreateHandler.class);
     private final JudgeDao judgeDao = new JudgeDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +33,7 @@ public class CreateHandler extends HttpServlet {
         try {
             judgeDao.insertJudge(newJudge);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger2.trace("Unable to insert, the problem is: " + e);
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("/listUser");
         dispatcher.forward(req,resp);

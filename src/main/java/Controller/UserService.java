@@ -2,6 +2,8 @@ package Controller;
 
 import Model.Dao.JudgeDao;
 import Model.Judge;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,19 +17,23 @@ import java.util.List;
 
 @WebServlet("/")
 public class UserService extends HttpServlet {
+    private static final Logger logger3 =
+            LogManager.getLogger(UserService.class);
     private final JudgeDao judgeDao = new JudgeDao();
     private static final String LIST_OF_JUDGES = "/list-users.jsp";
 
-    //create bad work
+    //do nothing
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
+        logger3.info(this.getServletName() + "Into doPost()");
         doGet(req, resp);
     }
         // read + refresh
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        logger3.info(this.getServletName() + "Into doGet()");
         List<Judge> listJudges = judgeDao.selectAllJudges();
         req.setAttribute("listJudges", listJudges);
         String action = "";
@@ -40,7 +46,7 @@ public class UserService extends HttpServlet {
             try {
                 judgeDao.deleteJudge(judgeId);
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger3.info("Unable to delete, a problem is: " + e);
             }
             List<Judge> listJud = judgeDao.selectAllJudges();
             req.setAttribute("listJudges", listJud);

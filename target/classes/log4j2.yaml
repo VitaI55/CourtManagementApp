@@ -1,0 +1,22 @@
+Configuration:
+  packages: "Controller"
+  name: Log4j2_Config
+  properties:
+    property:
+      name: log-path
+      value: logs
+#-------------------------------------------------------------
+  appenders:
+    File:
+      name: rootLogFile
+      fileName: logs/rootFile.txt
+      PatterLayout:
+        Pattern: "[%-5level] %d{yyyy-MM-dd} %class{1}:%L - %msg
+        %xEx{short}%n"
+#-------------------------------------------------------------
+  Loggers:
+    Root:
+      level: all
+      AppenderRef:
+        - ref: rootLogFile
+          level: all
