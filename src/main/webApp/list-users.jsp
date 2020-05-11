@@ -19,6 +19,10 @@
             <li><a href="<%=request.getContextPath()%>/listUser"
                    class="nav-link">Refresh</a></li>
         </ul>
+        <ul class="navbar-nav">
+            <li><a href="<%=request.getContextPath()%>/cases"
+                   class="nav-link">List Cases</a></li>
+        </ul>
     </nav>
 </header>
 <br>

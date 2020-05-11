@@ -1,7 +1,6 @@
 package Model.Dao;
 
-import Model.Judge;
-import Model.ServiceOperations;
+import Model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,23 +9,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CaseDao implements ServiceOperations {
-    private static final String INSERT_JUDGES_SQL = "INSERT INTO judges (name, surname, email, phoneNumber) VALUES  (?, ?, ?, ?);";
-    private static final String SELECT_JUDGE_BY_ID = "select id, name, surname, email,phoneNumber from judges where id =?";
-    private static final String SELECT_ALL_JUDGES = "select * from users";
-    private static final String DELETE_JUDGE_SQL = "delete from judges where id = ?;";
-    private static final String UPDATE_JUDGES_SQL = "UPDATE judges SET name = ?, surname = ?, email = ?, phoneNumber = ? "
-            + "where id = ?";
+public class CaseDao implements CaseOperations {
+    private static final String INSERT_CASE_SQL = "INSERT INTO cases  (caseType, level, description, judgeId) " +
+            "VALUES  (?, ?, ?, ?);";
+    private static final String SELECT_CASE_BY_ID = "select id, caseType, level, description," +
+            " judgeId from cases where id =?";
+    private static final String SELECT_ALL_CASES = "select * from cases";
+    private static final String DELETE_CASES_SQL = "delete from cases where id = ?;";
+    private static final String UPDATE_CASES_SQL = "UPDATE cases SET caseType = ?, level = ?," +
+            "description = ?, judgeId = ? where id = ?";
+    private final static String PERSONAL_CASE_SQL = "select distinct c.id," +
+            " c.caseType, c.level, c.description from cases as c" +
+            " inner join judges as j on c.judgeId = ?";
     private final DBConnect dbConnect = new DBConnect();
     @Override
-    public void insertJudge(Judge judge) throws SQLException {
+    public void insertCase(Case c) {
         try(Connection con = dbConnect.getConnection();
             PreparedStatement preparedStatement = con
-                    .prepareStatement(INSERT_JUDGES_SQL);) {
-            preparedStatement.setString(1, judge.getName());
-            preparedStatement.setString(2, judge.getSurname());
-            preparedStatement.setString(3, judge.getEmail());
-            preparedStatement.setInt(4, judge.getPhoneNumber());
+                    .prepareStatement(INSERT_CASE_SQL)) {
+            preparedStatement.setString(1, String.valueOf(c.getCaseType()));
+            preparedStatement.setString(2, String.valueOf(c.getLevel()));
+            preparedStatement.setString(3, c.getDescription());
+            preparedStatement.setInt(4,c.getJudgeId());
             preparedStatement.executeUpdate();
         }
         catch (Exception e) {
@@ -35,70 +39,92 @@ public class CaseDao implements ServiceOperations {
     }
 
     @Override
-    public Judge selectJudge(int id) {
-        Judge judge = null;
+    public Case selectCase(int id) {
+        Case c = null;
         try(Connection connection = dbConnect.getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(SELECT_JUDGE_BY_ID);){
+                    .prepareStatement(SELECT_CASE_BY_ID)){
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String email = rs.getString("email");
-                int phoneNumber = rs.getInt("phoneNumber");
-                judge = new Judge(id, name, surname, email, phoneNumber);
+                CaseType caseType = CaseType.valueOf(rs.getString("caseType"));
+                Level level = Level.valueOf(rs.getString("level"));
+                String description = rs.getString("description");
+                int JudgeId = rs.getInt("judgeId");
+                c = new Case(id, caseType, level, description, JudgeId);
             }
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        return judge;
+        return c;
     }
 
     @Override
-    public List<Judge> selectAllJudges() {
-        List<Judge> judges = new ArrayList<>();
+    public List<Case> selectAllCases() {
+        List<Case> cases = new ArrayList<>();
         try(Connection connection = dbConnect.getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(SELECT_ALL_JUDGES);){
+                    .prepareStatement(SELECT_ALL_CASES)){
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
                 int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String email = rs.getString("email");
-                int phoneNumber = rs.getInt("phoneNumber");
-                judges.add(new Judge(id, name, surname, email, phoneNumber));
+                CaseType caseType = CaseType.valueOf(rs.getString("caseType"));
+                Level level = Level.valueOf(rs.getString("level"));
+                String description = rs.getString("description");
+                int JudId = rs.getInt("judgeId");
+                cases.add(new Case(id, caseType, level, description, JudId));
             }
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        return judges;
+        return cases;
     }
 
     @Override
-    public void deleteJudge(int id) throws SQLException {
+    public void deleteCase(int id) throws SQLException {
         try(Connection connection = dbConnect.getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(DELETE_JUDGE_SQL);){
+                    .prepareStatement(DELETE_CASES_SQL)){
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
         }
     }
 
     @Override
-    public void updateJudge(Judge user) throws SQLException {
+    public void updateCase(Case c) throws SQLException {
         try(Connection connection = dbConnect.getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement(UPDATE_JUDGES_SQL);){
-            preparedStatement.setString(1,user.getName());
-            preparedStatement.setString(2,user.getSurname());
-            preparedStatement.setString(3,user.getEmail());
-            preparedStatement.setInt(4,user.getPhoneNumber());
-            preparedStatement.setInt(5,user.getId());
+                    .prepareStatement(UPDATE_CASES_SQL)){
+            preparedStatement.setString(1, String.valueOf(c.getCaseType()));
+            preparedStatement.setString(2, String.valueOf(c.getLevel()));
+            preparedStatement.setString(3,c.getDescription());
+            preparedStatement.setInt(4,c.getJudgeId());
+            preparedStatement.setInt(5,c.getId());
             preparedStatement.executeUpdate();
         }
+    }
+
+    @Override
+    public List<Case> selectPersonalCases(int id) {
+        List<Case> personalCases = new ArrayList<>();
+        try(Connection connection = dbConnect.getConnection();
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement(PERSONAL_CASE_SQL)){
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                int personsId = rs.getInt("id");
+                CaseType caseType = CaseType.valueOf(rs.getString("caseType"));
+                Level level = Level.valueOf(rs.getString("level"));
+                String description = rs.getString("description");
+                personalCases.add(new Case(personsId, caseType, level, description));
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return personalCases;
     }
 }

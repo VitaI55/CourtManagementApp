@@ -1,14 +1,14 @@
 package Model;
 
-public class Judge {
-    private int id;
+public class Judge extends Entity{
+
     private String name;
     private String surname;
     private String email;
     private int phoneNumber;
 
     public Judge(int id, String name, String surname, String email, int phoneNumber) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -22,12 +22,9 @@ public class Judge {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Judge: " + this.name + " " +  this.surname + "ph:" + this.phoneNumber;
     }
 
     public String getName() {
@@ -46,19 +43,19 @@ public class Judge {
         this.surname = surname;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

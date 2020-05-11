@@ -17,6 +17,9 @@
         <div>
             <a href="<%=request.getContextPath()%>/listUser" class="navbar-brand"> Judges List </a>
         </div>
+        <div>
+            <a href="<%=request.getContextPath()%>/cases" class="navbar-brand"> Cases List</a>
+        </div>
 
         <ul class="navbar-nav">
             <li><a href="create-user.jsp"
