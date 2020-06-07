@@ -64,7 +64,8 @@
                         <a href="update?id=<c:out value="${judge.id}"/>">Update</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="UserService?action=delete&id=<c:out value='${judge.id}' />">Delete</a>
-
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="personalCase?id=<c:out value='${judge.id}' />">Cases</a>
                     </td>
                 </tr>
             </c:forEach>

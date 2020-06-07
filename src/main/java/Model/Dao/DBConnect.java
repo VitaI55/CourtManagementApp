@@ -4,11 +4,12 @@ package Model.Dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 public class DBConnect {
 
-    public DBConnect(){
+    public DBConnect() {
     }
-    //connection to db method
+
     public Connection getConnection() {
         Connection connection = null;
         System.out.println("connecting..."); //there must be logger
@@ -22,19 +23,10 @@ public class DBConnect {
             String user = "root";
             String password = "frenkyPin4598";
             connection = DriverManager.getConnection(url, user, password);
-        }
-        catch (SQLException | ClassNotFoundException e){
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return connection;
     }
-    public void closeConnection() {
-        try {
-            this.getConnection().close();
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-            System.out.println("Unable to close connection");
-        }
-    }
+
 }
