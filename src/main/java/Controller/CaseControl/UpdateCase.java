@@ -4,7 +4,6 @@ import Model.MainData.Case;
 import Model.Enums.CaseType;
 import Model.Dao.CaseDao;
 import Model.Enums.Level;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

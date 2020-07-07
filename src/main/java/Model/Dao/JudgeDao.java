@@ -12,11 +12,11 @@ import java.util.List;
 
 public class JudgeDao implements JudgeManagement {
     private static final String INSERT_JUDGES_SQL = "INSERT INTO judges (name, surname, email, phoneNumber) VALUES  (?, ?, ?, ?);";
-    private static final String SELECT_JUDGE_BY_ID = "select id, name, surname, email,phoneNumber from judges where id =?";
-    private static final String SELECT_ALL_JUDGES = "select * from judges";
-    private static final String DELETE_JUDGE_SQL = "delete from judges where id = ?;";
+    private static final String SELECT_JUDGE_BY_ID = "SELECT id, name, surname, email,phoneNumber FROM judges WHERE id =?";
+    private static final String SELECT_ALL_JUDGES = "SELECT * FROM judges";
+    private static final String DELETE_JUDGE_SQL = "DELETE FROM judges WHERE id = ?;";
     private static final String UPDATE_JUDGES_SQL = "UPDATE judges SET name = ?, surname = ?, email = ?, phoneNumber = ? "
-            + "where id = ?";
+            + "WHERE id = ?";
     private final DBConnect dbConnect = new DBConnect();
 
     @Override

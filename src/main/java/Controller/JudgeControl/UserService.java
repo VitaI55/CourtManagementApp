@@ -18,7 +18,6 @@ public class UserService extends HttpServlet {
     private final JudgeDao judgeDao = new JudgeDao();
     private static final String LIST_OF_JUDGES = "/list-users.jsp";
 
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {

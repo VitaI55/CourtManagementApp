@@ -6,12 +6,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnect {
+    private Connection connection = null;
 
     public DBConnect() {
     }
 
     public Connection getConnection() {
-        Connection connection = null;
+
         System.out.println("connecting..."); //there must be logger
         try {
             Class.forName("com.mysql.jdbc.Driver");

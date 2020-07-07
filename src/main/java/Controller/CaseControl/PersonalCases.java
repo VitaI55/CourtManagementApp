@@ -2,7 +2,6 @@ package Controller.CaseControl;
 
 import Model.MainData.Case;
 import Model.Dao.CaseDao;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

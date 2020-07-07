@@ -15,15 +15,15 @@ import java.util.List;
 public class CaseDao implements CaseManagement {
     private static final String INSERT_CASE_SQL = "INSERT INTO cases  (caseType, level, description, judgeId) " +
             "VALUES  (?, ?, ?, ?);";
-    private static final String SELECT_CASE_BY_ID = "select id, caseType, level, description," +
-            " judgeId from cases where id =?";
-    private static final String SELECT_ALL_CASES = "select * from cases";
-    private static final String DELETE_CASES_SQL = "delete from cases where id = ?;";
+    private static final String SELECT_CASE_BY_ID = "SELECT id, caseType, level, description," +
+            " judgeId FROM cases WHERE id =?";
+    private static final String SELECT_ALL_CASES = "SELECT * FROM cases";
+    private static final String DELETE_CASES_SQL = "DELETE FROM cases WHERE id = ?;";
     private static final String UPDATE_CASES_SQL = "UPDATE cases SET caseType = ?, level = ?," +
-            "description = ?, judgeId = ? where id = ?";
-    private final static String PERSONAL_CASE_SQL = "select distinct c.id," +
-            " c.caseType, c.level, c.description from cases as c" +
-            " inner join judges as j on c.judgeId = ?";
+            "description = ?, judgeId = ? WHERE id = ?";
+    private final static String PERSONAL_CASE_SQL = "SELECT DISTINCT c.id," +
+            " c.caseType, c.level, c.description FROM cases AS c" +
+            " INNER JOIN judges AS j ON c.judgeId = ?";
     private final DBConnect dbConnect = new DBConnect();
 
     @Override
