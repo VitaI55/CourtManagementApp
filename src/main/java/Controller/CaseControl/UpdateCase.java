@@ -1,8 +1,11 @@
 package Controller.CaseControl;
 
+import Exceptions.IncorrectJudgeIdException;
+import Exceptions.InvalidCaseLevelException;
+import Exceptions.InvalidCaseTypeException;
+import Model.Dao.CaseDao;
 import Model.MainData.Case;
 import Model.Enums.CaseType;
-import Model.Dao.CaseDao;
 import Model.Enums.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/caseUpdate")
 public class UpdateCase extends HttpServlet {
@@ -20,7 +27,12 @@ public class UpdateCase extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        Case aCase = caseDao.selectCase(id);
+        Case aCase = null;
+        try {
+            aCase = caseDao.get(id);
+        } catch (IncorrectJudgeIdException e) {
+            e.printStackTrace();
+        }
         req.setAttribute("mCase", aCase);
         RequestDispatcher view = req.getRequestDispatcher("edit-case.jsp");
         view.forward(req, resp);
@@ -35,8 +47,10 @@ public class UpdateCase extends HttpServlet {
         int JudgeId = Integer.parseInt(req.getParameter("judgeId"));
         Case updCase = new Case(caseId, type, level, description, JudgeId);
         try {
-            caseDao.updateCase(updCase);
-        } catch (SQLException e) {
+            caseDao.update(updCase);
+        } catch(InvalidCaseLevelException | InvalidCaseTypeException e){
+            System.out.println(e);
+        } catch (Throwable e) {
             e.printStackTrace();
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("/cases");

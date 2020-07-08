@@ -1,7 +1,8 @@
 package Controller.CaseControl;
 
-import Model.MainData.Case;
 import Model.Dao.CaseDao;
+import Model.MainData.Case;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,6 @@ import java.util.List;
 @WebServlet("/personalCase")
 public class PersonalCases extends HttpServlet {
     private final CaseDao caseDao = new CaseDao();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

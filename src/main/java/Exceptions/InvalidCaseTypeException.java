@@ -1,7 +1,6 @@
 package Exceptions;
 
 public class InvalidCaseTypeException extends Throwable {
-
     private final String cause;
 
     public InvalidCaseTypeException(String cause) {

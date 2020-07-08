@@ -1,9 +1,12 @@
 package Controller.CaseControl;
 
+import Exceptions.InvalidCaseLevelException;
+import Exceptions.InvalidCaseTypeException;
+import Model.Dao.CaseDao;
 import Model.MainData.Case;
 import Model.Enums.CaseType;
-import Model.Dao.CaseDao;
 import Model.Enums.Level;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/createCase")
 public class CreateCase extends HttpServlet {
@@ -29,8 +33,13 @@ public class CreateCase extends HttpServlet {
         int JudgeId = Integer.parseInt(req.getParameter("judgeId"));
         Case newCase = new Case(caseType, level, description, JudgeId);
 
-        caseDao.insertCase(newCase);
-
+        try {
+            caseDao.save(newCase);
+        } catch (InvalidCaseTypeException | InvalidCaseLevelException e) {
+            System.out.println(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         RequestDispatcher dispatcher = req.getRequestDispatcher("/cases");
         dispatcher.forward(req, resp);
     }

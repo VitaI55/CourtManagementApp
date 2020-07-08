@@ -1,9 +1,13 @@
 package Model.Dao;
 
-import Model.*;
-import Model.MainData.Case;
+import Exceptions.IncorrectJudgeIdException;
+import Exceptions.InvalidCaseLevelException;
+import Exceptions.InvalidCaseTypeException;
+import Model.DaoFunctions;
 import Model.Enums.CaseType;
 import Model.Enums.Level;
+import Model.MainData.Case;
+import Model.MainData.Judge;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CaseDao implements CaseManagement {
+public class CaseDao implements DaoFunctions<Case> {
     private static final String INSERT_CASE_SQL = "INSERT INTO cases  (caseType, level, description, judgeId) " +
             "VALUES  (?, ?, ?, ?);";
     private static final String SELECT_CASE_BY_ID = "SELECT id, caseType, level, description," +
@@ -23,11 +27,13 @@ public class CaseDao implements CaseManagement {
             "description = ?, judgeId = ? WHERE id = ?";
     private final static String PERSONAL_CASE_SQL = "SELECT DISTINCT c.id," +
             " c.caseType, c.level, c.description FROM cases AS c" +
-            " INNER JOIN judges AS j ON c.judgeId = ?";
+            " INNER JOIN judges ON c.judgeId = ?";
     private final DBConnect dbConnect = new DBConnect();
 
     @Override
-    public void insertCase(Case c) {
+    public void save(Case c) throws SQLException, InvalidCaseTypeException, InvalidCaseLevelException {
+        checkCaseLevel(c);
+        checkCaseType(c);
         try (Connection con = dbConnect.getConnection();
              PreparedStatement preparedStatement = con
                      .prepareStatement(INSERT_CASE_SQL)) {
@@ -42,8 +48,9 @@ public class CaseDao implements CaseManagement {
     }
 
     @Override
-    public Case selectCase(int id) {
+    public Case get(int id) throws IncorrectJudgeIdException {
         Case c = null;
+        checkValidCaseJudgeId(id);
         try (Connection connection = dbConnect.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement(SELECT_CASE_BY_ID)) {
@@ -63,7 +70,7 @@ public class CaseDao implements CaseManagement {
     }
 
     @Override
-    public List<Case> selectAllCases() {
+    public List<Case> getAll() {
         List<Case> cases = new ArrayList<>();
         try (Connection connection = dbConnect.getConnection();
              PreparedStatement preparedStatement = connection
@@ -84,7 +91,8 @@ public class CaseDao implements CaseManagement {
     }
 
     @Override
-    public void deleteCase(int id) throws SQLException {
+    public void delete(int id) throws SQLException, IncorrectJudgeIdException {
+        checkValidCaseJudgeId(id);
         try (Connection connection = dbConnect.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement(DELETE_CASES_SQL)) {
@@ -94,7 +102,9 @@ public class CaseDao implements CaseManagement {
     }
 
     @Override
-    public void updateCase(Case c) throws SQLException {
+    public void update(Case c) throws SQLException, InvalidCaseTypeException, InvalidCaseLevelException {
+        checkCaseType(c);
+        checkCaseLevel(c);
         try (Connection connection = dbConnect.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement(UPDATE_CASES_SQL)) {
@@ -107,7 +117,37 @@ public class CaseDao implements CaseManagement {
         }
     }
 
-    @Override
+    private void checkCaseType(Case c) throws InvalidCaseTypeException {
+        if (c.getCaseType() != CaseType.CIVIL ||
+                c.getCaseType() != CaseType.CRIMINAL ||
+                c.getCaseType() != CaseType.TAXES) {
+            throw new InvalidCaseTypeException("This case type does not exist");
+        }
+    }
+
+    private void checkCaseLevel(Case c) throws InvalidCaseLevelException {
+        if (c.getLevel() != Level.EASY ||
+                c.getLevel() != Level.MEDIUM ||
+                c.getLevel() != Level.HARD ||
+                c.getLevel() != Level.EXPERT) {
+            throw new InvalidCaseLevelException("This case level does not exist");
+        }
+    }
+
+    private void checkValidCaseJudgeId(int id) throws IncorrectJudgeIdException {
+        JudgeDao judgeDao = new JudgeDao();
+        int count = 0;
+        for (Judge judge :
+                judgeDao.getAll()) {
+            if (id == judge.getId()) {
+                count++;
+            }
+        }
+        if (count == 0) {
+            throw new IncorrectJudgeIdException("Judge with this Id does not exist");
+        }
+    }
+
     public List<Case> selectPersonalCases(int id) {
         List<Case> personalCases = new ArrayList<>();
         try (Connection connection = dbConnect.getConnection();

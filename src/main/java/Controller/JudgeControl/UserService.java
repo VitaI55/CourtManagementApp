@@ -27,7 +27,7 @@ public class UserService extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        List<Judge> listJudges = judgeDao.selectAllJudges();
+        List<Judge> listJudges = judgeDao.getAll();
         req.setAttribute("listJudges", listJudges);
         String action = "";
         if (req.getParameter("action") != null) {
@@ -43,12 +43,11 @@ public class UserService extends HttpServlet {
 
     private void deleteJud(HttpServletRequest req, int judgeId) {
         try {
-            judgeDao.deleteJudge(judgeId);
+            judgeDao.delete(judgeId);
         } catch (SQLException e) {
             System.out.println("Unable to delete, a problem is: " + e);
         }
-        List<Judge> listJud = judgeDao.selectAllJudges();
+        List<Judge> listJud = judgeDao.getAll();
         req.setAttribute("listJudges", listJud);
     }
-
 }

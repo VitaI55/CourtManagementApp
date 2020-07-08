@@ -1,5 +1,7 @@
 package Controller.JudgeControl;
 
+import Exceptions.InvalidEmailException;
+import Exceptions.InvalidJudgeNameException;
 import Model.Dao.JudgeDao;
 import Model.MainData.Judge;
 
@@ -20,7 +22,7 @@ public class UpdateHandler extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        Judge judge = judgeDao.selectJudge(id);
+        Judge judge = judgeDao.get(id);
         req.setAttribute("judge", judge);
         RequestDispatcher view = req.getRequestDispatcher("edit-user.jsp");
         view.forward(req, resp);
@@ -36,9 +38,11 @@ public class UpdateHandler extends HttpServlet {
         int phoneNumber = Integer.parseInt(req.getParameter("phoneNumber"));
         Judge updatedJudge = new Judge(judgeId, name, surname, email, phoneNumber);
         try {
-            judgeDao.updateJudge(updatedJudge);
+            judgeDao.update(updatedJudge);
         } catch (SQLException e) {
             System.out.println("Unable to update because of: " + e);
+        } catch (InvalidJudgeNameException | InvalidEmailException e) {
+            e.printStackTrace();
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("/listUser");
         dispatcher.forward(req, resp);

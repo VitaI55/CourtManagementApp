@@ -47,7 +47,6 @@
                                    name="caseType" required="required">
                         </label>
                         </fieldset>
-
                         <fieldset class="form-group">
                             <label>Case Level</label> <label>
                             <input type="text"

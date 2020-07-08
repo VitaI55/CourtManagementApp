@@ -1,5 +1,7 @@
 package Controller.JudgeControl;
 
+import Exceptions.InvalidEmailException;
+import Exceptions.InvalidJudgeNameException;
 import Model.Dao.JudgeDao;
 import Model.MainData.Judge;
 
@@ -14,7 +16,6 @@ import java.sql.SQLException;
 
 @WebServlet("/create")
 public class CreateHandler extends HttpServlet {
-
     private final JudgeDao judgeDao = new JudgeDao();
 
     @Override
@@ -32,9 +33,11 @@ public class CreateHandler extends HttpServlet {
         int phoneNumber = Integer.parseInt(req.getParameter("phoneNumber"));
         Judge newJudge = new Judge(name, surname, email, phoneNumber);
         try {
-            judgeDao.insertJudge(newJudge);
+            judgeDao.save(newJudge);
         } catch (SQLException e) {
             System.out.println("Unable to insert, the problem is: " + e);
+        } catch (InvalidEmailException | InvalidJudgeNameException e) {
+            e.printStackTrace();
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("/listUser");
         dispatcher.forward(req, resp);

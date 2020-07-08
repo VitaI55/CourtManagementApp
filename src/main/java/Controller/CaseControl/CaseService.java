@@ -1,7 +1,9 @@
 package Controller.CaseControl;
 
-import Model.MainData.Case;
+import Exceptions.IncorrectJudgeIdException;
 import Model.Dao.CaseDao;
+import Model.MainData.Case;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +26,7 @@ public class CaseService extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Case> listCase = caseDao.selectAllCases();
+        List<Case> listCase = caseDao.getAll();
         req.setAttribute("listCases", listCase);
         String link = LIST_CASES;
         String action = "";
@@ -41,11 +43,13 @@ public class CaseService extends HttpServlet {
 
     private void deleteCase(HttpServletRequest req, int caseId) {
         try {
-            caseDao.deleteCase(caseId);
+            caseDao.delete(caseId);
+        } catch (IncorrectJudgeIdException e) {
+            System.out.println(e);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        List<Case> autoRefresh = caseDao.selectAllCases();
+        List<Case> autoRefresh = caseDao.getAll();
         req.setAttribute("listCases", autoRefresh);
     }
 }

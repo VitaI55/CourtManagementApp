@@ -1,7 +1,6 @@
 package Exceptions;
 
 public class InvalidCaseLevelException extends Throwable {
-
     private final String cause;
 
     public InvalidCaseLevelException(String cause) {
