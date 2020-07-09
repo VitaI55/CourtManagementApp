@@ -4,6 +4,8 @@ import Exceptions.InvalidEmailException;
 import Exceptions.InvalidJudgeNameException;
 import Model.Dao.JudgeDao;
 import Model.MainData.Judge;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,14 +19,20 @@ import java.sql.SQLException;
 @WebServlet("/update")
 public class UpdateHandler extends HttpServlet {
     private final JudgeDao judgeDao = new JudgeDao();
+    static final Logger JUDGE_UPDATE_LOGGER = LogManager.getLogger(UpdateHandler.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        Judge judge = judgeDao.get(id);
+        Judge judge = null;
+        try {
+            judge = judgeDao.get(id);
+        } catch (SQLException e) {
+            JUDGE_UPDATE_LOGGER.warn(e);
+        }
         req.setAttribute("judge", judge);
-        RequestDispatcher view = req.getRequestDispatcher("edit-user.jsp");
+        RequestDispatcher view = req.getRequestDispatcher("JudgeView/edit-user.jsp");
         view.forward(req, resp);
     }
 
@@ -40,11 +48,11 @@ public class UpdateHandler extends HttpServlet {
         try {
             judgeDao.update(updatedJudge);
         } catch (SQLException e) {
-            System.out.println("Unable to update because of: " + e);
+            JUDGE_UPDATE_LOGGER.debug(e);
         } catch (InvalidJudgeNameException | InvalidEmailException e) {
-            e.printStackTrace();
+            JUDGE_UPDATE_LOGGER.warn(e);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/listUser");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/");
         dispatcher.forward(req, resp);
     }
 }

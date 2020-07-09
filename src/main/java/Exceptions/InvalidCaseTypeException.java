@@ -10,6 +10,6 @@ public class InvalidCaseTypeException extends Throwable {
 
     @Override
     public String toString() {
-        return this.cause + "- Such case type does not exist";
+        return this.cause;
     }
 }

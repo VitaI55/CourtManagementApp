@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface DaoFunctions<T> {
 
-    T get(int id) throws IncorrectJudgeIdException;
+    T get(int id) throws Throwable;
 
-    List<T> getAll();
+    List<T> getAll() throws SQLException;
 
     //insert
     void save(T t) throws Throwable;

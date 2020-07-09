@@ -1,5 +1,8 @@
 package ControllerTest.CaseControlTest;
 
+import Exceptions.IncorrectJudgeIdException;
+import Exceptions.InvalidCaseLevelException;
+import Exceptions.InvalidCaseTypeException;
 import Model.Dao.CaseDao;
 import Model.Enums.CaseType;
 import Model.Enums.Level;
@@ -24,7 +27,7 @@ public class CaseServletTest {
     public Case actualCase;
 
     @Test
-    public void testCaseMainFunctions() throws SQLException {
+    public void testCaseMainFunctions() throws Throwable {
         // INSERT + SELECT OPERATIONS TESTING
         actualCase = new Case(actualCase.getCaseType(), actualCase.getLevel(),
                 actualCase.getDescription(), actualCase.getJudgeId());
@@ -49,6 +52,10 @@ public class CaseServletTest {
         caseDao.delete(actualCaseId);
         Mockito.when(caseDao.get(actualCaseId)).thenReturn(null);
         Assert.assertNull(caseDao.get(actualCaseId));
+    }
+
+    public void testCaseExceptions(){
+
     }
 
     public void putParamsToTestMap(String key, Case testCase) {

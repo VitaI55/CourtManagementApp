@@ -10,6 +10,6 @@ public class InvalidEmailException extends Throwable {
 
     @Override
     public String toString() {
-        return this.cause + "- Incorrect data for Email";
+        return this.cause;
     }
 }

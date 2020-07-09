@@ -1,8 +1,9 @@
 package Controller.CaseControl;
 
-import Exceptions.IncorrectJudgeIdException;
 import Model.Dao.CaseDao;
 import Model.MainData.Case;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import java.util.List;
 @WebServlet("/cases")
 public class CaseService extends HttpServlet {
     private final CaseDao caseDao = new CaseDao();
-    private static String LIST_CASES = "/list-cases.jsp";
+    static final Logger CASE_SERVICE_LOGGER = LogManager.getLogger(CaseService.class);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +29,7 @@ public class CaseService extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Case> listCase = caseDao.getAll();
         req.setAttribute("listCases", listCase);
-        String link = LIST_CASES;
+        String link = "CaseView/list-cases.jsp";
         String action = "";
         if (req.getParameter("action") != null) {
             action = req.getParameter("action");
@@ -44,10 +45,8 @@ public class CaseService extends HttpServlet {
     private void deleteCase(HttpServletRequest req, int caseId) {
         try {
             caseDao.delete(caseId);
-        } catch (IncorrectJudgeIdException e) {
-            System.out.println(e);
         } catch (SQLException e) {
-            e.printStackTrace();
+            CASE_SERVICE_LOGGER.debug(e);
         }
         List<Case> autoRefresh = caseDao.getAll();
         req.setAttribute("listCases", autoRefresh);

@@ -1,0 +1,5 @@
+ModelTest\DaoTest\DBConnectTest.class
+ControllerTest\CaseControlTest\CaseServletTest.class
+ModelTest\DaoTest\JudgeDaoTest.class
+ControllerTest\JudgeControlTest\JudgeServletTest.class
+ModelTest\DaoTest\CaseDaoTest.class

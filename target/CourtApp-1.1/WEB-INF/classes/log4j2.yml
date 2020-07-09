@@ -1,0 +1,29 @@
+Configuration:
+  status: info
+
+  appenders:
+    Console:
+      name: LogToConsole
+      PatternLayout:
+        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+
+    File:
+      name: LogToFile
+      fileName: C:/Users/Dariy/IdeaProjects/Court/logs/log4j2.log
+      PatternLayout:
+        Pattern: "[%-5level] %d{yyyy-MM-dd} %class{1}:%L - %msg %xEx{short}%n"
+
+  Loggers:
+    logger:
+      - name: com.epam
+        level: all
+        additivity: false
+        AppenderRef:
+          - ref: LogToConsole
+          - ref: LogToFile
+
+    Root:
+      level: info
+      AppenderRef:
+        - ref: LogToConsole
+        - ref: LogToFile

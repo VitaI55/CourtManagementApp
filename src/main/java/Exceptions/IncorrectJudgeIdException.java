@@ -10,6 +10,6 @@ public class IncorrectJudgeIdException extends Throwable {
 
     @Override
     public String toString() {
-        return this.cause + "- Judge with this Id does not exist";
+        return this.cause;
     }
 }

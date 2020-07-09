@@ -10,6 +10,6 @@ public class InvalidCaseLevelException extends Throwable {
 
     @Override
     public String toString() {
-        return this.cause + "- Such case level does not exist";
+        return this.cause;
     }
 }

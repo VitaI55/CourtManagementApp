@@ -22,7 +22,7 @@ public class JudgeServletTest {
     public Judge actualJudge;
 
     @Test
-    public void testJudgeMainFunctions() throws SQLException {
+    public void testJudgeMainFunctions() throws Throwable {
         // INSERT + SELECT OPERATIONS TESTING
         actualJudge = new Judge(actualJudge.getName(), actualJudge.getSurname(),
                 actualJudge.getEmail(), actualJudge.getPhoneNumber());
@@ -47,6 +47,10 @@ public class JudgeServletTest {
         judgeDao.delete(actualJudgeId);
         Mockito.when(judgeDao.get(actualJudgeId)).thenReturn(null);
         Assert.assertNull(judgeDao.get(actualJudgeId));
+    }
+
+    public void testJudgeExceptions(){
+
     }
 
     public void putParamsToTestMap(String key, Judge testJudge) {

@@ -1,0 +1,30 @@
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[WARN ] 2020-07-09 UpdateHandler:48 - Someone tried to register with incorrect Name/Email:You entered incorrect data for email- Incorrect data for Email 
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[INFO ] 2020-07-09 DBConnect:18 - connecting... 
+[INFO ] 2020-07-09 DBConnect:18 - connecting...
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[WARN ] 2020-07-09 UpdateCase:54 - This case level does not exist- Such case level does not exist
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[WARN ] 2020-07-09 UpdateCase:54 - This case level does not exist- Such case level does not exist 
+[WARN ] 2020-07-09 UpdateCase:54 - This case level does not exist- Such case level does not exist 
+[WARN ] 2020-07-09 UpdateCase:54 - This case type does not exist- Such case type does not exist 
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[WARN ] 2020-07-09 CreateHandler:43 - You can not use this as your Name- Incorrect data for a Name field 
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[WARN ] 2020-07-09 CreateCase:39 - This case level does not exist- Such case level does not exist
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page 
+[WARN ] 2020-07-09 UpdateCase:55 - Judge with this Id does not exist- Judge with this Id does not exist 
+[WARN ] 2020-07-09 UpdateCase:55 - Judge with this Id does not exist- Judge with this Id does not exist 
+[INFO ] 2020-07-09 UserService:34 - User has entered on a main Page
+[WARN ] 2020-07-09 UpdateCase:46 - This case level does not exist- Such case level does not exist 
+[WARN ] 2020-07-09 UpdateCase:46 - This case level does not exist- Such case level does not exist 
+[WARN ] 2020-07-09 UpdateCase:46 - Judge with this Id does not exist- Judge with this Id does not exist 
+[WARN ] 2020-07-09 UpdateCase:46 - Judge with this Id does not exist- Judge with this Id does not exist 

@@ -10,6 +10,6 @@ public class InvalidJudgeNameException extends Throwable {
 
     @Override
     public String toString() {
-        return this.cause + "- Incorrect data for a Name field";
+        return this.cause;
     }
 }

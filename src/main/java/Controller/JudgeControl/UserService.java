@@ -2,6 +2,8 @@ package Controller.JudgeControl;
 
 import Model.Dao.JudgeDao;
 import Model.MainData.Judge;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +17,9 @@ import java.util.List;
 
 @WebServlet("/")
 public class UserService extends HttpServlet {
+    static final Logger JUDGE_SERVICE_LOGGER = LogManager.getLogger(UserService.class);
     private final JudgeDao judgeDao = new JudgeDao();
-    private static final String LIST_OF_JUDGES = "/list-users.jsp";
+    private static final String LIST_OF_JUDGES = "JudgeView/list-users.jsp";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -27,7 +30,14 @@ public class UserService extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        List<Judge> listJudges = judgeDao.getAll();
+        List<Judge> listJudges = null;
+        try {
+            listJudges = judgeDao.getAll();
+        } catch (SQLException e) {
+            JUDGE_SERVICE_LOGGER.warn(e);
+            RequestDispatcher view = req.getRequestDispatcher(LIST_OF_JUDGES);
+            view.forward(req, resp);
+        }
         req.setAttribute("listJudges", listJudges);
         String action = "";
         if (req.getParameter("action") != null) {
@@ -35,18 +45,18 @@ public class UserService extends HttpServlet {
         }
         if (action.equalsIgnoreCase("delete")) {
             int judgeId = Integer.parseInt(req.getParameter("id"));
-            deleteJud(req, judgeId);
+            try {
+                deleteJud(req, judgeId);
+            } catch (SQLException e) {
+                JUDGE_SERVICE_LOGGER.warn(e);
+            }
         }
         RequestDispatcher view = req.getRequestDispatcher(LIST_OF_JUDGES);
         view.forward(req, resp);
     }
 
-    private void deleteJud(HttpServletRequest req, int judgeId) {
-        try {
-            judgeDao.delete(judgeId);
-        } catch (SQLException e) {
-            System.out.println("Unable to delete, a problem is: " + e);
-        }
+    private void deleteJud(HttpServletRequest req, int judgeId) throws SQLException {
+        judgeDao.delete(judgeId);
         List<Judge> listJud = judgeDao.getAll();
         req.setAttribute("listJudges", listJud);
     }

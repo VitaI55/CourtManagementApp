@@ -21,7 +21,7 @@ public class PersonalCases extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         List<Case> personalCases = caseDao.selectPersonalCases(id);
         req.setAttribute("listCases", personalCases);
-        RequestDispatcher view = req.getRequestDispatcher("/personal-case.jsp");
+        RequestDispatcher view = req.getRequestDispatcher("CaseView/personal-case.jsp");
         view.forward(req, resp);
     }
 

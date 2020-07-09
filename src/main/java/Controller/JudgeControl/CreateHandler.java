@@ -4,6 +4,8 @@ import Exceptions.InvalidEmailException;
 import Exceptions.InvalidJudgeNameException;
 import Model.Dao.JudgeDao;
 import Model.MainData.Judge;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +19,7 @@ import java.sql.SQLException;
 @WebServlet("/create")
 public class CreateHandler extends HttpServlet {
     private final JudgeDao judgeDao = new JudgeDao();
+    static final Logger JUDGE_CRETE_LOGGER = LogManager.getLogger(CreateHandler.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -35,11 +38,11 @@ public class CreateHandler extends HttpServlet {
         try {
             judgeDao.save(newJudge);
         } catch (SQLException e) {
-            System.out.println("Unable to insert, the problem is: " + e);
+            JUDGE_CRETE_LOGGER.debug(e);
         } catch (InvalidEmailException | InvalidJudgeNameException e) {
-            e.printStackTrace();
+            JUDGE_CRETE_LOGGER.warn(e);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/listUser");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/");
         dispatcher.forward(req, resp);
     }
 }
