@@ -15,7 +15,6 @@ public class DBConnect {
     }
 
     public Connection getConnection() {
-  //      DB_LOGGER.info("connecting...");
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306" +

@@ -23,8 +23,13 @@ public class JudgeDao implements DaoFunctions<Judge> {
     private static final String DELETE_JUDGE_SQL = "DELETE FROM judges WHERE id = ?;";
     private static final String UPDATE_JUDGES_SQL = "UPDATE judges SET name = ?, surname = ?, email = ?, phoneNumber = ? "
             + "WHERE id = ?";
-    private final DBConnect dbConnect = new DBConnect();
-    private final Validation validation = new Validation();
+    private final DBConnect dbConnect;
+    private final Validation validation;
+
+    public JudgeDao() {
+        this.validation = new Validation();
+        this.dbConnect = new DBConnect();
+    }
 
     @Override
     public void save(Judge judge) throws InvalidJudgeNameException, InvalidEmailException, SQLException {
@@ -107,5 +112,4 @@ public class JudgeDao implements DaoFunctions<Judge> {
             preparedStatement.executeUpdate();
         }
     }
-
 }

@@ -23,8 +23,8 @@ import java.sql.SQLException;
 @WebServlet("/caseUpdate")
 public class UpdateCase extends HttpServlet {
     private final CaseDao caseDao = new CaseDao();
-    private final Validation validation = new Validation();
     static final Logger CASE_UPDATE_LOGGER = LogManager.getLogger(UpdateCase.class);
+    Validation validation = new Validation();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +36,7 @@ public class UpdateCase extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             validation.checkCaseLevel(req.getParameter("level"));
             validation.checkCaseType(req.getParameter("caseType"));

@@ -24,7 +24,11 @@ public class CaseDao implements DaoFunctions<Case> {
     private final static String PERSONAL_CASE_SQL = "SELECT DISTINCT c.id," +
             " c.caseType, c.level, c.description FROM cases AS c" +
             " INNER JOIN judges ON c.judgeId = ?";
-    private final DBConnect dbConnect = new DBConnect();
+    private final DBConnect dbConnect;
+
+    public CaseDao() {
+        this.dbConnect = new DBConnect();
+    }
 
     @Override
     public void save(Case c) throws SQLException {

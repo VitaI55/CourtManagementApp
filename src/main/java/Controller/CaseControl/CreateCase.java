@@ -23,8 +23,8 @@ import java.sql.SQLException;
 @WebServlet("/createCase")
 public class CreateCase extends HttpServlet {
     private final CaseDao caseDao = new CaseDao();
-    private final Validation validation = new Validation();
     static final Logger CASE_CREATE_LOGGER = LogManager.getLogger(CreateCase.class);
+    Validation validation = new Validation();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,7 +39,7 @@ public class CreateCase extends HttpServlet {
             validation.checkValidCaseJudgeId(req.getParameter("judgeId"));
         } catch (InvalidCaseLevelException | InvalidCaseTypeException | IncorrectJudgeIdException | SQLException e) {
             CASE_CREATE_LOGGER.warn(e);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("CaseView/edit-case.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("cases");
             dispatcher.forward(req, resp);
         }
         CaseType caseType = CaseType.valueOf(req.getParameter("caseType"));

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -10,7 +10,6 @@
           crossorigin="anonymous">
 </head>
 <body>
-
 <header>
     <nav class="navbar navbar-expand-md navbar-dark"
          style="background-color: gray">
@@ -52,14 +51,13 @@
             <c:forEach items="${listJudges}" var="judge">
 
                 <tr>
-                    <td><c:out value="${judge.id}" /></td>
-                    <td><c:out value="${judge.name}" /></td>
-                    <td><c:out value="${judge.surname}" /></td>
-                    <td><c:out value="${judge.email}" /></td>
-                    <td><c:out value="${judge.phoneNumber}" /></td>
+                    <td><c:out value="${judge.id}"/></td>
+                    <td><c:out value="${judge.name}"/></td>
+                    <td><c:out value="${judge.surname}"/></td>
+                    <td><c:out value="${judge.email}"/></td>
+                    <td><c:out value="${judge.phoneNumber}"/></td>
 
                     <td>
-
                         <a href="update?id=<c:out value="${judge.id}"/>">Update</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="?action=delete&id=<c:out value='${judge.id}' />">Delete</a>
@@ -69,7 +67,6 @@
                 </tr>
             </c:forEach>
             </tbody>
-
         </table>
     </div>
 </div>

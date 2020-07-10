@@ -1,7 +1,9 @@
 package Controller.JudgeControl;
 
+import Controller.Validation;
 import Exceptions.InvalidEmailException;
 import Exceptions.InvalidJudgeNameException;
+import Model.Dao.DBConnect;
 import Model.Dao.JudgeDao;
 import Model.MainData.Judge;
 import org.apache.logging.log4j.LogManager;

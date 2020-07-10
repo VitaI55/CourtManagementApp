@@ -1,5 +1,7 @@
 package Controller.JudgeControl;
 
+import Controller.Validation;
+import Model.Dao.DBConnect;
 import Model.Dao.JudgeDao;
 import Model.MainData.Judge;
 import org.apache.logging.log4j.LogManager;
