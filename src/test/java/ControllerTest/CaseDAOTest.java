@@ -21,9 +21,9 @@ import java.util.stream.Stream;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CaseDAOTest {
-    CaseDao caseDao;
-    CaseDaoTest caseDaoTest;
-    Map<String, List<Object>> testCaseDataMap;
+    private CaseDao caseDao;
+    private CaseDaoTest caseDaoTest;
+    private Map<String, List<Object>> testCaseDataMap;
 
     @BeforeAll
     public void setUp() {

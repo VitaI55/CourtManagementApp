@@ -7,6 +7,7 @@ Controller\JudgeControl\UpdateHandler.class
 Exceptions\InvalidCaseTypeException.class
 Controller\CaseControl\CreateCase.class
 Controller\CaseControl\UpdateCase.class
+Controller\Validation.class
 Model\Enums\CaseType.class
 Model\DaoFunctions.class
 Model\Dao\DBConnect.class

@@ -23,7 +23,7 @@ import java.sql.SQLException;
 @WebServlet("/caseUpdate")
 public class UpdateCase extends HttpServlet {
     private final CaseDao caseDao = new CaseDao();
-    static final Logger CASE_UPDATE_LOGGER = LogManager.getLogger(UpdateCase.class);
+    private static final Logger CASE_UPDATE_LOGGER = LogManager.getLogger(UpdateCase.class);
     Validation validation = new Validation();
 
     @Override

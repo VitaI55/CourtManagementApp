@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.sql.SQLException;
 
 public class TestExceptions {
-    Validation validation;
+    private Validation validation;
 
     @Before
     public void setUp(){

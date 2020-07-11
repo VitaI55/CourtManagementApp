@@ -40,7 +40,7 @@
         <hr>
         <div class="container text-right">
 
-            <a href="CaseView/add-case.jsp" class="btn btn-success">Add
+            <a href="<%=request.getContextPath()%>/createCase" class="btn btn-success">Add
                 New Case</a>
         </div>
         <br>

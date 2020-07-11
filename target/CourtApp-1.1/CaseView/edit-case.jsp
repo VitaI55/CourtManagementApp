@@ -22,7 +22,7 @@
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="CaseView/add-case.jsp"
+            <li><a href="<%=request.getContextPath()%>/createCase"
                    class="nav-link">Add a new Case</a></li>
         </ul>
     </nav>

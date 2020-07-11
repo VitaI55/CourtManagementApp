@@ -25,3 +25,5 @@
 [WARN ] 2020-07-09 UpdateCase:46 - Judge with this Id does not exist- Judge with this Id does not exist 
 [WARN ] 2020-07-10 CreateCase:40 - This case type does not exist 
 [WARN ] 2020-07-10 CreateHandler:43 - You entered incorrect data for email 
+[WARN ] 2020-07-10 UserService:53 - com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`db`.`cases`, CONSTRAINT `fk_JI_judges` FOREIGN KEY (`judgeId`) REFERENCES `judges` (`id`)) 
+[WARN ] 2020-07-11 UpdateCase:46 - Judge with this Id does not exist 

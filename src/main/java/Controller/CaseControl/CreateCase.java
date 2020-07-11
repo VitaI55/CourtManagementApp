@@ -23,12 +23,13 @@ import java.sql.SQLException;
 @WebServlet("/createCase")
 public class CreateCase extends HttpServlet {
     private final CaseDao caseDao = new CaseDao();
-    static final Logger CASE_CREATE_LOGGER = LogManager.getLogger(CreateCase.class);
+    private static final Logger CASE_CREATE_LOGGER = LogManager.getLogger(CreateCase.class);
     Validation validation = new Validation();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+        RequestDispatcher view = req.getRequestDispatcher("CaseView/add-case.jsp");
+        view.forward(req, resp);
     }
 
     @Override

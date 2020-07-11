@@ -32,7 +32,7 @@
         <h3 class="text-center">List of Judges</h3>
         <hr>
         <div class="container text-right">
-            <a href="JudgeView/create-user.jsp" class="btn btn-success">Appoint a new Judge</a>
+            <a href="<%=request.getContextPath()%>/create" class="btn btn-success">Appoint a new Judge</a>
         </div>
         <br>
         <table class="table table-bordered">

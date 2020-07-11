@@ -22,7 +22,7 @@
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="JudgeView/create-user.jsp" class="nav-link">Appoint a Judge</a></li>
+            <li><a href="<%=request.getContextPath()%>/create" class="nav-link">Appoint a Judge</a></li>
         </ul>
     </nav>
 </header>

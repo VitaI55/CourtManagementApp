@@ -32,7 +32,8 @@ public class JudgeDao implements DaoFunctions<Judge> {
     }
 
     @Override
-    public void save(Judge judge) throws InvalidJudgeNameException, InvalidEmailException, SQLException {
+    public void save(Judge judge) throws InvalidJudgeNameException,
+            InvalidEmailException, SQLException {
         validation.checkJudgeName(judge.getName());
         validation.checkJudgeEmail(judge.getEmail());
         try (Connection con = dbConnect.getConnection();

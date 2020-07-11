@@ -21,9 +21,9 @@ import java.util.stream.Stream;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class JudgeDAOTest {
-    JudgeDao judgeDao;
-    JudgeDaoTest judgeDaoTest;
-    Map<String, List<Object>> testJudgeDataMap;
+    private JudgeDao judgeDao;
+    private JudgeDaoTest judgeDaoTest;
+    private Map<String, List<Object>> testJudgeDataMap;
 
     @BeforeAll
     public void setUp() {

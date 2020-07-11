@@ -1,7 +1,6 @@
 package Model.MainData;
 
 public class Judge extends Entity {
-
     private String name;
     private String surname;
     private String email;

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class DBConnect {
     private Connection connection = null;
-    static final Logger DB_LOGGER = LogManager.getLogger(DBConnect.class);
+    private static final Logger DB_LOGGER = LogManager.getLogger(DBConnect.class);
 
     public DBConnect() {
     }
