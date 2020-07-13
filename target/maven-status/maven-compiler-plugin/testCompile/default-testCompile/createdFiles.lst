@@ -1,5 +1,5 @@
-ControllerTest\CaseDAOTest.class
-ModelTest\DaoTest\JudgeDaoTest.class
-ControllerTest\JudgeDAOTest.class
-ModelTest\DaoTest\CaseDaoTest.class
-ControllerTest\TestExceptions.class
+ModelTest\TestExceptions.class
+ControllerTest\CaseServletTest.class
+ModelTest\DaoTest\CaseDAOTest.class
+ControllerTest\JudgeServletTest.class
+ModelTest\DaoTest\JudgeDAOTest.class

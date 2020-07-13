@@ -14,9 +14,9 @@ VALUES ('Yurii', 'Lkymych', 'user1@user.com', 0508480905);
 INSERT INTO judges (name, surname, email, phoneNumber)
 VALUES ('Vovan', 'Fran', 'user2@user.com', 0502859634);
 INSERT INTO judges (name, surname, email, phoneNumber)
-VALUES ('Duke', 'Nukem', 'user6@user.com', 0683748947);
+VALUES ('Duke', 'Nukem', 'user3@user.com', 0683748947);
 INSERT INTO judges (name, surname, email, phoneNumber)
-VALUES ('Puka', 'Monat', 'user8@user.com', 0694447589);
+VALUES ('Puka', 'Monat', 'user4@user.com', 0694447589);
 
 CREATE TABLE cases
 (

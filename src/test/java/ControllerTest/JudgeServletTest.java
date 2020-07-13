@@ -1,9 +1,9 @@
 package ControllerTest;
 
-import Controller.JudgeControl.CreateJudge;
-import Controller.JudgeControl.JudgeService;
-import Controller.JudgeControl.UpdateJudge;
-import ModelTest.DaoTest.JudgeDaoTest;
+import Controller.JudgeControl.CreateJudgeServlet;
+import Controller.JudgeControl.MainJudgeServlet;
+import Controller.JudgeControl.UpdateJudgeServlet;
+import Model.Dao.JudgeSelector;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ import java.io.IOException;
 import static org.mockito.Mockito.*;
 
 public class JudgeServletTest {
-    private JudgeDaoTest judgeDaoTest;
+    private JudgeSelector judgeSelector;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private RequestDispatcher requestDispatcher;
@@ -24,7 +24,7 @@ public class JudgeServletTest {
 
     @Before
     public void setUp() {
-        judgeDaoTest = new JudgeDaoTest();
+        judgeSelector = new JudgeSelector();
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         requestDispatcher = mock(RequestDispatcher.class);
@@ -38,7 +38,7 @@ public class JudgeServletTest {
         when(request.getParameter("phoneNumber")).thenReturn("05055487");
         when(request.getRequestDispatcher(path)).thenReturn(requestDispatcher);
 
-        final CreateJudge createJudge = new CreateJudge();
+        final CreateJudgeServlet createJudge = new CreateJudgeServlet();
 
         createJudge.doPost(request, response);
 
@@ -53,9 +53,10 @@ public class JudgeServletTest {
         when(request.getParameter("email")).thenReturn("kamir@gmail.com");
         when(request.getParameter("phoneNumber")).thenReturn("05055487");
         when(request.getRequestDispatcher(path)).thenReturn(requestDispatcher);
-        int testId = judgeDaoTest.selectJudgeIdByEmail("kamir@gmail.com");
+        int testId = judgeSelector.selectJudgeIdByEmail("kamir@gmail.com");
         when(request.getParameter("id")).thenReturn(String.valueOf(testId));
-        final UpdateJudge updateJudge = new UpdateJudge();
+
+        final UpdateJudgeServlet updateJudge = new UpdateJudgeServlet();
 
         updateJudge.doPost(request, response);
 
@@ -65,17 +66,17 @@ public class JudgeServletTest {
 
     @Test
     public void testDeleteJudge() throws ServletException, IOException {
-        String path1 = "JudgeView/list-users.jsp";
+        String path1 = "JudgeView/list-judges.jsp";
         when(request.getParameter("action")).thenReturn("delete");
         when(request.getRequestDispatcher(path1)).thenReturn(requestDispatcher);
-        int testId = judgeDaoTest.selectJudgeIdByEmail("kamir@gmail.com");
+        int testId = judgeSelector.selectJudgeIdByEmail("kamir@gmail.com");
         when(request.getParameter("id")).thenReturn(String.valueOf(testId));
 
-        final JudgeService judgeService = new JudgeService();
+        final MainJudgeServlet judgeService = new MainJudgeServlet();
+
         judgeService.doGet(request, response);
 
         verify(request, times(1)).getRequestDispatcher(path1);
         verify(requestDispatcher).forward(request, response);
     }
-
 }

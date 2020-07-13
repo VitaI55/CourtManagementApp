@@ -1,7 +1,7 @@
 package Controller;
 
 import Exceptions.*;
-import Model.Dao.JudgeDao;
+import Model.Dao.JudgeReadDelete;
 import Model.Enums.CaseType;
 import Model.Enums.Level;
 import Model.MainData.Judge;
@@ -43,7 +43,7 @@ public class Validation {
     }
 
     public void checkValidCaseJudgeId(String id) throws IncorrectJudgeIdException, SQLException {
-        JudgeDao judgeDao = new JudgeDao();
+        JudgeReadDelete judgeDao = new JudgeReadDelete();
         int count = 0;
         for (Judge judge : judgeDao.getAll()) {
             if (Integer.parseInt(id) == judge.getId()) {
