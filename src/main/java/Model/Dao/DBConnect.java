@@ -8,8 +8,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnect {
+    private static final Logger DB_LOGGER =
+            LogManager.getLogger(DBConnect.class);
     private Connection connection;
-    private static final Logger DB_LOGGER = LogManager.getLogger(DBConnect.class);
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String JDBC_DB_URL = "jdbc:mysql://localhost:3306/db";
     static final String JDBC_USER = "root";

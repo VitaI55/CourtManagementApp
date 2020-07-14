@@ -23,9 +23,10 @@ import java.sql.SQLException;
 
 @WebServlet("/update-case")
 public class UpdateCaseServlet extends HttpServlet {
+    private static final Logger CASE_UPDATE_LOGGER =
+            LogManager.getLogger(UpdateCaseServlet.class);
     private CaseCreateUpdate caseCreateUpdate;
     private CaseReadDelete caseReadDelete;
-    private static Logger CASE_UPDATE_LOGGER;
     private Validation validation;
 
     @Override
@@ -34,7 +35,6 @@ public class UpdateCaseServlet extends HttpServlet {
         this.caseCreateUpdate = new CaseCreateUpdate();
         this.caseReadDelete = new CaseReadDelete();
         this.validation = new Validation();
-        CASE_UPDATE_LOGGER = LogManager.getLogger(UpdateCaseServlet.class);
     }
 
     @Override

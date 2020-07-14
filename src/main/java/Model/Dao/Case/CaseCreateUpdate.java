@@ -11,16 +11,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CaseCreateUpdate implements DaoCreateUpdate<Case> {
+    private static final Logger CASE_CREATE_UPDATE_LOGGER =
+            LogManager.getLogger(CaseCreateUpdate.class);
     private static final String INSERT_CASE = "INSERT INTO cases  (caseType, level, description, judgeId) " +
             "VALUES  (?, ?, ?, ?);";
     private static final String UPDATE_CASE_BY_ID = "UPDATE cases SET caseType = ?, level = ?," +
             "description = ?, judgeId = ? WHERE id = ?";
-    private static Logger CASE_CREATE_UPDATE_LOGGER;
     private final DBConnect dbConnect;
 
     public CaseCreateUpdate() {
         this.dbConnect = new DBConnect();
-        CASE_CREATE_UPDATE_LOGGER = LogManager.getLogger(CaseCreateUpdate.class);
     }
 
     @Override

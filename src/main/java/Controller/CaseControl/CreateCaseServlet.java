@@ -22,8 +22,9 @@ import java.sql.SQLException;
 
 @WebServlet("/create-case")
 public class CreateCaseServlet extends HttpServlet {
+    private static final Logger CASE_CREATE_LOGGER =
+            LogManager.getLogger(CreateCaseServlet.class);
     private CaseCreateUpdate caseCreateUpdate;
-    private static Logger CASE_CREATE_LOGGER;
     private Validation validation;
 
     @Override
@@ -31,7 +32,6 @@ public class CreateCaseServlet extends HttpServlet {
         super.init();
         this.validation = new Validation();
         this.caseCreateUpdate = new CaseCreateUpdate();
-        CASE_CREATE_LOGGER = LogManager.getLogger(CreateCaseServlet.class);
     }
 
     @Override

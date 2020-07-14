@@ -14,10 +14,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class JudgeCreateUpdate implements DaoCreateUpdate<Judge> {
-    private static final String INSERT_JUDGE_SQL = "INSERT INTO judges (name, surname, email, phoneNumber) VALUES  (?, ?, ?, ?);";
+    private static final Logger JUDGE_CREATE_UPDATE_LOGGER =
+            LogManager.getLogger(JudgeCreateUpdate.class);
+    private static final String INSERT_JUDGE_SQL = "INSERT INTO judges (name, surname, email, phoneNumber)" +
+            " VALUES  (?, ?, ?, ?)";
     private static final String UPDATE_JUDGE_BY_ID = "UPDATE judges SET name = ?, surname = ?, email = ?, phoneNumber = ? "
             + "WHERE id = ?";
-    private static final Logger JUDGE_CREATE_UPDATE_LOGGER = LogManager.getLogger(JudgeCreateUpdate.class);
     private final DBConnect dbConnect;
     private final Validation validation;
 

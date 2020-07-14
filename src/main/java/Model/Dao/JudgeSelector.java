@@ -9,14 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JudgeSelector {
+    private static final Logger JUDGE_SELECTOR_LOGGER =
+            LogManager.getLogger(JudgeSelector.class);
     private static final String SELECT_JUDGE_ID_BY_EMAIL =
             "SELECT id FROM judges WHERE email =?";
-    private static Logger JUDGE_SELECTOR_LOGGER;
     private final DBConnect dbConnect;
 
     public JudgeSelector() {
         this.dbConnect = new DBConnect();
-        JUDGE_SELECTOR_LOGGER = LogManager.getLogger(JudgeSelector.class);
     }
 
     public int selectJudgeIdByEmail(String email) {

@@ -18,16 +18,16 @@ import java.io.IOException;
 
 @WebServlet("/update-judge")
 public class UpdateJudgeServlet extends HttpServlet {
+    private static final Logger JUDGE_UPDATE_LOGGER =
+            LogManager.getLogger(UpdateJudgeServlet.class);
     private JudgeCreateUpdate judgeCreateUpdate;
     private JudgeReadDelete judgeReadDelete;
-    private static Logger JUDGE_UPDATE_LOGGER;
 
     @Override
     public void init() throws ServletException {
         super.init();
         this.judgeCreateUpdate = new JudgeCreateUpdate();
         this.judgeReadDelete = new JudgeReadDelete();
-        JUDGE_UPDATE_LOGGER = LogManager.getLogger(UpdateJudgeServlet.class);
     }
 
     @Override

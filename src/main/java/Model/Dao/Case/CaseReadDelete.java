@@ -16,16 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CaseReadDelete implements DaoReadDelete<Case> {
+    private static final Logger CASE_READ_DELETE_LOGGER =
+            LogManager.getLogger(CaseReadDelete.class);
     private static final String SELECT_CASE_BY_ID = "SELECT id, caseType, level, description," +
             " judgeId FROM cases WHERE id =?";
     private static final String SELECT_ALL_CASES = "SELECT * FROM cases";
     private static final String DELETE_CASE_BY_ID = "DELETE FROM cases WHERE id = ?;";
-    private static Logger CASE_READ_DELETE_LOGGER;
     private final DBConnect dbConnect;
 
     public CaseReadDelete() {
         this.dbConnect = new DBConnect();
-        CASE_READ_DELETE_LOGGER = LogManager.getLogger(CaseReadDelete.class);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class CaseReadDelete implements DaoReadDelete<Case> {
                      .prepareStatement(DELETE_CASE_BY_ID)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             CASE_READ_DELETE_LOGGER.warn(e);
         }
     }

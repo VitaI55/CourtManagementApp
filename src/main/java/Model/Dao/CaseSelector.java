@@ -14,17 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CaseSelector {
+    private static final Logger CASE_SELECTOR_LOGGER =
+            LogManager.getLogger(CaseSelector.class);
     private static final String SELECT_CASE_ID_BY_DESCRIPTION =
             "SELECT id FROM cases WHERE description =?";
     private final static String SELECT_PERSONAL_CASES_BY_JUDGE_ID = "SELECT DISTINCT c.id," +
             " c.caseType, c.level, c.description FROM cases AS c" +
             " INNER JOIN judges ON c.judgeId = ?";
-    private static Logger CASE_SELECTOR_LOGGER;
     private final DBConnect dbConnect;
 
     public CaseSelector() {
         this.dbConnect = new DBConnect();
-        CASE_SELECTOR_LOGGER = LogManager.getLogger(CaseSelector.class);
     }
 
     public List<Case> selectPersonalCases(int id) {

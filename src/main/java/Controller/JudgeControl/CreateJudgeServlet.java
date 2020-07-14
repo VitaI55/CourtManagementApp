@@ -17,14 +17,14 @@ import java.io.IOException;
 
 @WebServlet("/create-judge")
 public class CreateJudgeServlet extends HttpServlet {
+    private static final Logger JUDGE_CREATE_LOGGER =
+            LogManager.getLogger(CreateJudgeServlet.class);
     private JudgeCreateUpdate judgeCreateUpdate;
-    private static Logger JUDGE_CREATE_LOGGER;
 
     @Override
     public void init() throws ServletException {
         super.init();
         this.judgeCreateUpdate = new JudgeCreateUpdate();
-        JUDGE_CREATE_LOGGER = LogManager.getLogger(CreateJudgeServlet.class);
     }
 
     @Override

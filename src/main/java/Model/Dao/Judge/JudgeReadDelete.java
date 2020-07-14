@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JudgeReadDelete implements DaoReadDelete<Judge> {
+    private static final Logger JUDGE_READ_DELETE_LOGGER =
+            LogManager.getLogger(JudgeReadDelete.class);
     private static final String SELECT_JUDGE_BY_ID = "SELECT id, name, surname, email,phoneNumber FROM judges WHERE id =?";
     private static final String SELECT_ALL_JUDGES = "SELECT * FROM judges";
     private static final String DELETE_JUDGE_BY_ID = "DELETE FROM judges WHERE id = ?";
-    private static final Logger JUDGE_READ_DELETE_LOGGER = LogManager.getLogger(JudgeReadDelete.class);
     private final DBConnect dbConnect;
 
     public JudgeReadDelete() {
