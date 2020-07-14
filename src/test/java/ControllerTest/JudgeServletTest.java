@@ -20,7 +20,7 @@ public class JudgeServletTest {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private RequestDispatcher requestDispatcher;
-    private final static String path = "/";
+    private final static String path = "/judges";
 
     @Before
     public void setUp() {
@@ -39,7 +39,7 @@ public class JudgeServletTest {
         when(request.getRequestDispatcher(path)).thenReturn(requestDispatcher);
 
         final CreateJudgeServlet createJudge = new CreateJudgeServlet();
-
+        createJudge.init();
         createJudge.doPost(request, response);
 
         verify(request, times(1)).getRequestDispatcher(path);
@@ -57,7 +57,7 @@ public class JudgeServletTest {
         when(request.getParameter("id")).thenReturn(String.valueOf(testId));
 
         final UpdateJudgeServlet updateJudge = new UpdateJudgeServlet();
-
+        updateJudge.init();
         updateJudge.doPost(request, response);
 
         verify(request, times(1)).getRequestDispatcher(path);
@@ -73,7 +73,7 @@ public class JudgeServletTest {
         when(request.getParameter("id")).thenReturn(String.valueOf(testId));
 
         final MainJudgeServlet judgeService = new MainJudgeServlet();
-
+        judgeService.init();
         judgeService.doGet(request, response);
 
         verify(request, times(1)).getRequestDispatcher(path1);

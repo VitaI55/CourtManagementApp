@@ -3,6 +3,8 @@ package Model.Dao;
 import Model.Enums.CaseType;
 import Model.Enums.Level;
 import Model.MainData.Case;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,15 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CaseSelector {
-    private final DBConnect dbConnect;
     private static final String SELECT_CASE_ID_BY_DESCRIPTION =
             "SELECT id FROM cases WHERE description =?";
     private final static String SELECT_PERSONAL_CASES_BY_JUDGE_ID = "SELECT DISTINCT c.id," +
             " c.caseType, c.level, c.description FROM cases AS c" +
             " INNER JOIN judges ON c.judgeId = ?";
+    private static Logger CASE_SELECTOR_LOGGER;
+    private final DBConnect dbConnect;
 
     public CaseSelector() {
         this.dbConnect = new DBConnect();
+        CASE_SELECTOR_LOGGER = LogManager.getLogger(CaseSelector.class);
     }
 
     public List<Case> selectPersonalCases(int id) {
@@ -38,7 +42,7 @@ public class CaseSelector {
                 personalCases.add(new Case(personsId, caseType, level, description));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            CASE_SELECTOR_LOGGER.warn(e);
         }
         return personalCases;
     }
@@ -54,7 +58,7 @@ public class CaseSelector {
                 caseId = rs.getInt("id");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            CASE_SELECTOR_LOGGER.warn(e);
         }
         return caseId;
     }

@@ -12,9 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/personalCase")
+@WebServlet("/personal-cases")
 public class PersonalCaseServlet extends HttpServlet {
-    private final CaseSelector caseSelector = new CaseSelector();
+    private CaseSelector caseSelector;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.caseSelector = new CaseSelector();
+    }
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

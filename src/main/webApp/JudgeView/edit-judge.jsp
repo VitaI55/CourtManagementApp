@@ -15,14 +15,14 @@
     <nav class="navbar navbar-expand-md navbar-dark"
          style="background-color: deepskyblue">
         <div>
-            <a href="<%=request.getContextPath()%>/" class="navbar-brand"> Judges List </a>
+            <a href="<%=request.getContextPath()%>/judges" class="navbar-brand"> Judges List </a>
         </div>
         <div>
             <a href="<%=request.getContextPath()%>/cases" class="navbar-brand"> Cases List</a>
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="<%=request.getContextPath()%>/create" class="nav-link">Appoint a Judge</a></li>
+            <li><a href="<%=request.getContextPath()%>/create-judge" class="nav-link">Appoint a Judge</a></li>
         </ul>
     </nav>
 </header>
@@ -32,7 +32,7 @@
         <div class="card-body">
             <div>
                 <fieldset>
-                    <form action="<%=request.getContextPath()%>/update" method="post">
+                    <form action="<%=request.getContextPath()%>/update-judge" method="post">
                         <caption>
                             <h2>
                                 Change Judge Info

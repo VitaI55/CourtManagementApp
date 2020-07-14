@@ -14,7 +14,7 @@
     <nav class="navbar-nav"
          style="background-color: yellow">
         <div>
-            <a href="<%=request.getContextPath()%>/" class="navbar-brand"> Users List </a>
+            <a href="<%=request.getContextPath()%>/judges" class="navbar-brand"> Judges List </a>
         </div>
         <div>
             <a href="<%=request.getContextPath()%>/cases" class="navbar-brand"> Cases List</a>
@@ -26,7 +26,7 @@
         <div class="card-body">
             <div>
                 <fieldset>
-                    <form action="<%=request.getContextPath()%>/createCase" method="post">
+                    <form action="<%=request.getContextPath()%>/create-case" method="post">
                         <caption>
                             <h2>
                                 Add a New Case

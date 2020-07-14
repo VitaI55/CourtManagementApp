@@ -8,28 +8,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnect {
-    private Connection connection = null;
+    private Connection connection;
     private static final Logger DB_LOGGER = LogManager.getLogger(DBConnect.class);
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String JDBC_DB_URL = "jdbc:mysql://localhost:3306/db";
+    static final String JDBC_USER = "root";
+    static final String JDBC_PASS = "frenkyPin4598";
 
     public DBConnect() {
+        this.connection = null;
     }
 
     public Connection getConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306" +
-                    "/db?characterEncoding=latin1&useUnicode=true&" +
-                    "useJDBCCompliantTimezoneShift=true&" +
-                    "useLegacyDatetimeCode=false&" +
-                    "serverTimezone=UTC";
-            String user = "root";
-            String password = "frenkyPin4598";
-            connection = DriverManager.getConnection(url, user, password);
+            Class.forName(JDBC_DRIVER);
+            connection = DriverManager.getConnection(JDBC_DB_URL, JDBC_USER, JDBC_PASS);
         } catch (SQLException | ClassNotFoundException e) {
-            DB_LOGGER.debug(e);
+            DB_LOGGER.warn(e);
         }
-
         return connection;
     }
-
 }

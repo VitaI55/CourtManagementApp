@@ -15,7 +15,7 @@
          style="background-color: gray">
 
         <ul class="navbar-nav">
-            <li><a href="<%=request.getContextPath()%>/"
+            <li><a href="<%=request.getContextPath()%>/judges"
                    class="nav-link">Refresh</a></li>
         </ul>
         <ul class="navbar-nav">
@@ -32,7 +32,7 @@
         <h3 class="text-center">List of Judges</h3>
         <hr>
         <div class="container text-right">
-            <a href="<%=request.getContextPath()%>/create" class="btn btn-success">Appoint a new Judge</a>
+            <a href="<%=request.getContextPath()%>/create-judge" class="btn btn-success">Appoint a new Judge</a>
         </div>
         <br>
         <table class="table table-bordered">
@@ -58,11 +58,11 @@
                     <td><c:out value="${judge.phoneNumber}"/></td>
 
                     <td>
-                        <a href="update?id=<c:out value="${judge.id}"/>">Update</a>
+                        <a href="update-judge?id=<c:out value="${judge.id}"/>">Update</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="?action=delete&id=<c:out value='${judge.id}' />">Delete</a>
+                        <a href="judges?action=delete&id=<c:out value='${judge.id}' />">Delete</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="personalCase?id=<c:out value='${judge.id}' />">Cases</a>
+                        <a href="personal-cases?id=<c:out value='${judge.id}' />">Cases</a>
                     </td>
                 </tr>
             </c:forEach>

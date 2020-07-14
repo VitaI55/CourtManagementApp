@@ -4,7 +4,7 @@ import Controller.Validation;
 import Exceptions.IncorrectJudgeIdException;
 import Exceptions.InvalidCaseLevelException;
 import Exceptions.InvalidCaseTypeException;
-import Model.Dao.CaseCreateUpdate;
+import Model.Dao.Case.CaseCreateUpdate;
 import Model.Enums.CaseType;
 import Model.Enums.Level;
 import Model.MainData.Case;
@@ -20,11 +20,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/createCase")
+@WebServlet("/create-case")
 public class CreateCaseServlet extends HttpServlet {
-    private final CaseCreateUpdate caseCreateUpdate = new CaseCreateUpdate();
-    private static final Logger CASE_CREATE_LOGGER = LogManager.getLogger(CreateCaseServlet.class);
-    Validation validation = new Validation();
+    private CaseCreateUpdate caseCreateUpdate;
+    private static Logger CASE_CREATE_LOGGER;
+    private Validation validation;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.validation = new Validation();
+        this.caseCreateUpdate = new CaseCreateUpdate();
+        CASE_CREATE_LOGGER = LogManager.getLogger(CreateCaseServlet.class);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,9 +46,10 @@ public class CreateCaseServlet extends HttpServlet {
             validation.checkCaseLevel(req.getParameter("level"));
             validation.checkCaseType(req.getParameter("caseType"));
             validation.checkValidCaseJudgeId(req.getParameter("judgeId"));
-        } catch (InvalidCaseLevelException | InvalidCaseTypeException | IncorrectJudgeIdException | SQLException e) {
+        } catch (InvalidCaseLevelException | InvalidCaseTypeException |
+                IncorrectJudgeIdException | SQLException e) {
             CASE_CREATE_LOGGER.warn(e);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("cases");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/cases");
             dispatcher.forward(req, resp);
         }
         CaseType caseType = CaseType.valueOf(req.getParameter("caseType"));
@@ -49,11 +58,7 @@ public class CreateCaseServlet extends HttpServlet {
         int JudgeId = Integer.parseInt(req.getParameter("judgeId"));
         Case newCase = new Case(caseType, level, description, JudgeId);
 
-        try {
-            caseCreateUpdate.save(newCase);
-        } catch (SQLException e) {
-            CASE_CREATE_LOGGER.debug(e);
-        }
+        caseCreateUpdate.save(newCase);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/cases");
         dispatcher.forward(req, resp);
     }

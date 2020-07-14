@@ -35,3 +35,5 @@
 [WARN ] 2020-07-13 MainJudgeServlet:51 - com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`db`.`cases`, CONSTRAINT `fk_JI_judges` FOREIGN KEY (`judgeId`) REFERENCES `judges` (`id`)) 
 [WARN ] 2020-07-13 UpdateCaseServlet:48 - Judge with this Id does not exist 
 [WARN ] 2020-07-13 CreateCaseServlet:42 - Judge with this Id does not exist 
+[WARN ] 2020-07-14 JudgeReadDelete:81 - com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`db`.`cases`, CONSTRAINT `fk_JI_judges` FOREIGN KEY (`judgeId`) REFERENCES `judges` (`id`)) 
+[WARN ] 2020-07-14 CreateJudgeServlet:49 - You entered incorrect data for email 

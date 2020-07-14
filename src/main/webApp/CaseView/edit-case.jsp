@@ -15,15 +15,15 @@
     <nav class="navbar navbar-expand-md navbar-dark"
          style="background-color: darkorchid">
         <div>
-            <a href="<%=request.getContextPath()%>/" class="navbar-brand"> Users List </a>
+            <a href="<%=request.getContextPath()%>/judges" class="navbar-brand"> Judges List </a>
         </div>
         <div>
             <a href="<%=request.getContextPath()%>/cases" class="navbar-brand"> Cases List</a>
         </div>
 
         <ul class="navbar-nav">
-            <li><a href="<%=request.getContextPath()%>/createCase"
-                   class="nav-link">Add a new Case</a></li>
+            <li><a href="<%=request.getContextPath()%>/create-case"
+                   class="nav-link">Add new Case</a></li>
         </ul>
     </nav>
 </header>
@@ -33,7 +33,7 @@
         <div class="card-body">
             <div>
                 <fieldset>
-                    <form action="<%=request.getContextPath()%>/caseUpdate" method="post">
+                    <form action="<%=request.getContextPath()%>/update-case" method="post">
                         <caption>
                             <h2>
                                 Edit Case Info

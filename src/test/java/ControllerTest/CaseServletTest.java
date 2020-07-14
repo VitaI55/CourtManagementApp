@@ -40,7 +40,7 @@ public class CaseServletTest {
         when(request.getRequestDispatcher(path)).thenReturn(requestDispatcher);
 
         final CreateCaseServlet createCase = new CreateCaseServlet();
-
+        createCase.init();
         createCase.doPost(request, response);
 
         verify(request, times(1)).getRequestDispatcher(path);
@@ -58,7 +58,7 @@ public class CaseServletTest {
         when(request.getParameter("id")).thenReturn(String.valueOf(testId));
 
         final UpdateCaseServlet updateCase = new UpdateCaseServlet();
-
+        updateCase.init();
         updateCase.doPost(request, response);
 
         verify(request, times(1)).getRequestDispatcher(path);
@@ -73,7 +73,7 @@ public class CaseServletTest {
         when(request.getParameter("id")).thenReturn(String.valueOf(testId));
 
         final MainCaseServlet caseService = new MainCaseServlet();
-
+        caseService.init();
         caseService.doGet(request, response);
 
         verify(request, times(1)).getRequestDispatcher("CaseView/list-cases.jsp");
@@ -85,7 +85,7 @@ public class CaseServletTest {
         when(request.getParameter("id")).thenReturn(String.valueOf(1));
         when(request.getRequestDispatcher("CaseView/personal-case.jsp")).thenReturn(requestDispatcher);
         final PersonalCaseServlet personalCases = new PersonalCaseServlet();
-
+        personalCases.init();
         personalCases.doGet(request, response);
 
         verify(request, times(1)).getRequestDispatcher("CaseView/personal-case.jsp");

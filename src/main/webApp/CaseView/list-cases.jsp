@@ -15,8 +15,8 @@
     <nav class="navbar navbar-expand-md navbar-dark"
          style="background-color: forestgreen">
         <ul class="navbar-nav">
-            <li><a href="<%=request.getContextPath()%>/"
-                   class="nav-link">List Users</a></li>
+            <li><a href="<%=request.getContextPath()%>/judges"
+                   class="nav-link">List Judges</a></li>
         </ul>
         <ul class="navbar-nav">
             <li><a href="<%=request.getContextPath()%>/cases"
@@ -33,7 +33,7 @@
         <hr>
         <div class="container text-right">
 
-            <a href="<%=request.getContextPath()%>/createCase" class="btn btn-success">Add
+            <a href="<%=request.getContextPath()%>/create-case" class="btn btn-success">Add
                 New Case</a>
         </div>
         <br>
@@ -60,7 +60,7 @@
                     <td><c:out value="${mCase.judgeId}"/></td>
                     <td>
 
-                        <a href="caseUpdate?id=<c:out value="${mCase.id}"/>">Update</a>
+                        <a href="update-case?id=<c:out value="${mCase.id}"/>">Update</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="cases?action=delete&id=<c:out value='${mCase.id}' />">Delete</a>
                     </td>

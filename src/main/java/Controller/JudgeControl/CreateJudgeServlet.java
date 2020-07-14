@@ -2,7 +2,7 @@ package Controller.JudgeControl;
 
 import Exceptions.InvalidEmailException;
 import Exceptions.InvalidJudgeNameException;
-import Model.Dao.JudgeCreateUpdate;
+import Model.Dao.Judge.JudgeCreateUpdate;
 import Model.MainData.Judge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,15 +14,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
-@WebServlet("/create")
+@WebServlet("/create-judge")
 public class CreateJudgeServlet extends HttpServlet {
-    private final JudgeCreateUpdate judgeCreateUpdate = new JudgeCreateUpdate();
-    private static final Logger JUDGE_CRETE_LOGGER = LogManager.getLogger(CreateJudgeServlet.class);
+    private JudgeCreateUpdate judgeCreateUpdate;
+    private static Logger JUDGE_CREATE_LOGGER;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    public void init() throws ServletException {
+        super.init();
+        this.judgeCreateUpdate = new JudgeCreateUpdate();
+        JUDGE_CREATE_LOGGER = LogManager.getLogger(CreateJudgeServlet.class);
+    }
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         RequestDispatcher view = req.getRequestDispatcher("JudgeView/create-judge.jsp");
         view.forward(req, resp);
@@ -38,12 +44,11 @@ public class CreateJudgeServlet extends HttpServlet {
         Judge newJudge = new Judge(name, surname, email, phoneNumber);
         try {
             judgeCreateUpdate.save(newJudge);
-        } catch (SQLException e) {
-            JUDGE_CRETE_LOGGER.debug(e);
         } catch (InvalidEmailException | InvalidJudgeNameException e) {
-            JUDGE_CRETE_LOGGER.warn(e);
+            JUDGE_CREATE_LOGGER.warn(e);
+        } finally {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/judges");
+            dispatcher.forward(req, resp);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/");
-        dispatcher.forward(req, resp);
     }
 }

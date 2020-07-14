@@ -1,11 +1,12 @@
-C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\JudgeReadDelete.java
+C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\Case\CaseCreateUpdate.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Exceptions\InvalidCaseLevelException.java
-C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\CaseReadDelete.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\JudgeSelector.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Controller\JudgeControl\CreateJudgeServlet.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\DBConnect.java
+C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\Judge\JudgeCreateUpdate.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\MainData\Judge.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Controller\CaseControl\MainCaseServlet.java
+C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\Judge\JudgeReadDelete.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Controller\JudgeControl\UpdateJudgeServlet.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Exceptions\InvalidCaseTypeException.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Enums\Level.java
@@ -15,8 +16,7 @@ C:\Users\Dariy\IdeaProjects\Court\src\main\java\Controller\CaseControl\PersonalC
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\MainData\Entity.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Controller\CaseControl\CreateCaseServlet.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Controller\CaseControl\UpdateCaseServlet.java
-C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\CaseCreateUpdate.java
-C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\JudgeCreateUpdate.java
+C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Dao\Case\CaseReadDelete.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\Enums\CaseType.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Exceptions\InvalidEmailException.java
 C:\Users\Dariy\IdeaProjects\Court\src\main\java\Model\DaoCreateUpdate.java

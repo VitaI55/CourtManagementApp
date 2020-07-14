@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -14,7 +14,7 @@
     <nav class="navbar-nav"
          style="background-color: yellow">
         <div>
-            <a href="<%=request.getContextPath()%>/" class="navbar-brand"> Judges List </a>
+            <a href="<%=request.getContextPath()%>/judges" class="navbar-brand"> Judges List </a>
         </div>
         <div>
             <a href="<%=request.getContextPath()%>/cases" class="navbar-brand"> Cases List</a>
@@ -26,13 +26,11 @@
         <div class="card-body">
             <div>
                 <fieldset>
-                    <form action="<%=request.getContextPath()%>/create" method="post">
-                        <caption>
-                            <h2>
-                                Appoint a Judge
-                            </h2>
-                        </caption>
-                        <input type="hidden" name="id" value="<c:out value='${judge.id}' />" />
+                    <form action="<%=request.getContextPath()%>/create-judge" method="post">
+
+                        <h2>Appoint a Judge</h2>
+
+                        <input type="hidden" name="id" value="<c:out value='${judge.id}' />"/>
                         <fieldset class="form-group">
                             <label>Judge Name</label> <label>
                             <input type="text"
@@ -40,6 +38,7 @@
                                    name="name" required="required">
                         </label>
                         </fieldset>
+
 
                         <fieldset class="form-group">
                             <label>Judge Surname</label> <label>
@@ -49,6 +48,7 @@
                         </label>
                         </fieldset>
 
+
                         <fieldset class="form-group">
                             <label>Judge Email</label> <label>
                             <input type="text"
@@ -57,13 +57,15 @@
                         </label>
                         </fieldset>
 
+
                         <fieldset class="form-group">
                             <label>Judge phoneNumber</label> <label>
                             <input type="number"
-                                   value = "<c:out value='${judge.phoneNumber}' />" class="form-control"
+                                   value="<c:out value='${judge.phoneNumber}' />" class="form-control"
                                    name="phoneNumber">
                         </label>
                         </fieldset>
+
                         <button type="submit" class="btn btn-success">Confirm</button>
                     </form>
                 </fieldset>

@@ -2,8 +2,8 @@ package Controller.JudgeControl;
 
 import Exceptions.InvalidEmailException;
 import Exceptions.InvalidJudgeNameException;
-import Model.Dao.JudgeCreateUpdate;
-import Model.Dao.JudgeReadDelete;
+import Model.Dao.Judge.JudgeCreateUpdate;
+import Model.Dao.Judge.JudgeReadDelete;
 import Model.MainData.Judge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,24 +15,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
-@WebServlet("/update")
+@WebServlet("/update-judge")
 public class UpdateJudgeServlet extends HttpServlet {
-    private final JudgeCreateUpdate judgeCreateUpdate = new JudgeCreateUpdate();
-    private final JudgeReadDelete judgeReadDelete = new JudgeReadDelete();
-    private static final Logger JUDGE_UPDATE_LOGGER = LogManager.getLogger(UpdateJudgeServlet.class);
+    private JudgeCreateUpdate judgeCreateUpdate;
+    private JudgeReadDelete judgeReadDelete;
+    private static Logger JUDGE_UPDATE_LOGGER;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.judgeCreateUpdate = new JudgeCreateUpdate();
+        this.judgeReadDelete = new JudgeReadDelete();
+        JUDGE_UPDATE_LOGGER = LogManager.getLogger(UpdateJudgeServlet.class);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        Judge judge = null;
-        try {
-            judge = judgeReadDelete.get(id);
-        } catch (SQLException e) {
-            JUDGE_UPDATE_LOGGER.warn(e);
-        }
+        Judge judge = judgeReadDelete.get(id);
         req.setAttribute("judge", judge);
         RequestDispatcher view = req.getRequestDispatcher("JudgeView/edit-judge.jsp");
         view.forward(req, resp);
@@ -49,12 +51,10 @@ public class UpdateJudgeServlet extends HttpServlet {
         Judge updatedJudge = new Judge(judgeId, name, surname, email, phoneNumber);
         try {
             judgeCreateUpdate.update(updatedJudge);
-        } catch (SQLException e) {
-            JUDGE_UPDATE_LOGGER.debug(e);
         } catch (InvalidJudgeNameException | InvalidEmailException e) {
             JUDGE_UPDATE_LOGGER.warn(e);
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/judges");
         dispatcher.forward(req, resp);
     }
 }

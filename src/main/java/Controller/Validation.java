@@ -1,7 +1,7 @@
 package Controller;
 
 import Exceptions.*;
-import Model.Dao.JudgeReadDelete;
+import Model.Dao.Judge.JudgeReadDelete;
 import Model.Enums.CaseType;
 import Model.Enums.Level;
 import Model.MainData.Judge;

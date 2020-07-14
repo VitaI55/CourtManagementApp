@@ -1,7 +1,7 @@
 package ModelTest.DaoTest;
 
-import Model.Dao.CaseCreateUpdate;
-import Model.Dao.CaseReadDelete;
+import Model.Dao.Case.CaseCreateUpdate;
+import Model.Dao.Case.CaseReadDelete;
 import Model.Dao.CaseSelector;
 import Model.Enums.CaseType;
 import Model.Enums.Level;
@@ -12,7 +12,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +37,7 @@ public class CaseDAOTest {
     @ParameterizedTest
     @MethodSource("getTestCases")
     @Order(1)
-    public void testCreateCase(Case actualCase) throws SQLException {
+    public void testCreateCase(Case actualCase) {
         actualCase = new Case(actualCase.getCaseType(), actualCase.getLevel(),
                 actualCase.getDescription(), actualCase.getJudgeId());
         caseCreateUpdate.save(actualCase);
@@ -52,7 +51,7 @@ public class CaseDAOTest {
     @ParameterizedTest
     @MethodSource("getTestCases")
     @Order(2)
-    public void testUpdateCase(Case actualCase) throws SQLException {
+    public void testUpdateCase(Case actualCase) {
         int actualCaseId = caseSelector.selectCaseIdByDescription(actualCase.getDescription());
         actualCase = new Case(actualCaseId, CaseType.CRIMINAL, Level.EXPERT, "Mom help me", 1);
         caseCreateUpdate.update(actualCase);
@@ -65,7 +64,7 @@ public class CaseDAOTest {
     @ParameterizedTest()
     @MethodSource("getTestCases")
     @Order(3)
-    public void testDeleteCase(Case actualCase) throws SQLException {
+    public void testDeleteCase(Case actualCase) {
         int actualCaseId = caseSelector.selectCaseIdByDescription(actualCase.getDescription());
         caseReadDelete.delete(actualCaseId);
         Assert.assertNull(caseReadDelete.get(actualCaseId));

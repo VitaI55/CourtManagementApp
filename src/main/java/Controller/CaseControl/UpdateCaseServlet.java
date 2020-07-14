@@ -4,8 +4,8 @@ import Controller.Validation;
 import Exceptions.IncorrectJudgeIdException;
 import Exceptions.InvalidCaseLevelException;
 import Exceptions.InvalidCaseTypeException;
-import Model.Dao.CaseCreateUpdate;
-import Model.Dao.CaseReadDelete;
+import Model.Dao.Case.CaseCreateUpdate;
+import Model.Dao.Case.CaseReadDelete;
 import Model.Enums.CaseType;
 import Model.Enums.Level;
 import Model.MainData.Case;
@@ -21,12 +21,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/caseUpdate")
+@WebServlet("/update-case")
 public class UpdateCaseServlet extends HttpServlet {
-    private final CaseCreateUpdate caseCreateUpdate = new CaseCreateUpdate();
-    private final CaseReadDelete caseReadDelete = new CaseReadDelete();
-    private static final Logger CASE_UPDATE_LOGGER = LogManager.getLogger(UpdateCaseServlet.class);
-    Validation validation = new Validation();
+    private CaseCreateUpdate caseCreateUpdate;
+    private CaseReadDelete caseReadDelete;
+    private static Logger CASE_UPDATE_LOGGER;
+    private Validation validation;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.caseCreateUpdate = new CaseCreateUpdate();
+        this.caseReadDelete = new CaseReadDelete();
+        this.validation = new Validation();
+        CASE_UPDATE_LOGGER = LogManager.getLogger(UpdateCaseServlet.class);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -55,11 +64,8 @@ public class UpdateCaseServlet extends HttpServlet {
         String description = req.getParameter("description");
         int JudgeId = Integer.parseInt(req.getParameter("judgeId"));
         Case updCase = new Case(caseId, type, level, description, JudgeId);
-        try {
-            caseCreateUpdate.update(updCase);
-        } catch (SQLException e) {
-            CASE_UPDATE_LOGGER.debug(e);
-        }
+
+        caseCreateUpdate.update(updCase);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/cases");
         dispatcher.forward(req, resp);
     }

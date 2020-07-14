@@ -1,6 +1,6 @@
 package Controller.CaseControl;
 
-import Model.Dao.CaseReadDelete;
+import Model.Dao.Case.CaseReadDelete;
 import Model.MainData.Case;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,8 +17,13 @@ import java.util.List;
 
 @WebServlet("/cases")
 public class MainCaseServlet extends HttpServlet {
-    private final CaseReadDelete caseReadDelete = new CaseReadDelete();
-    private static final Logger CASE_SERVICE_LOGGER = LogManager.getLogger(MainCaseServlet.class);
+    private CaseReadDelete caseReadDelete;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.caseReadDelete = new CaseReadDelete();
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,11 +48,7 @@ public class MainCaseServlet extends HttpServlet {
     }
 
     private void deleteCase(HttpServletRequest req, int caseId) {
-        try {
-            caseReadDelete.delete(caseId);
-        } catch (SQLException e) {
-            CASE_SERVICE_LOGGER.debug(e);
-        }
+        caseReadDelete.delete(caseId);
         List<Case> autoRefresh = caseReadDelete.getAll();
         req.setAttribute("listCases", autoRefresh);
     }

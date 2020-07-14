@@ -2,8 +2,8 @@ package ModelTest.DaoTest;
 
 import Exceptions.InvalidEmailException;
 import Exceptions.InvalidJudgeNameException;
-import Model.Dao.JudgeCreateUpdate;
-import Model.Dao.JudgeReadDelete;
+import Model.Dao.Judge.JudgeCreateUpdate;
+import Model.Dao.Judge.JudgeReadDelete;
 import Model.Dao.JudgeSelector;
 import Model.MainData.Judge;
 import org.junit.Assert;
@@ -12,7 +12,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +37,7 @@ public class JudgeDAOTest {
     @ParameterizedTest
     @MethodSource("getTestJudges")
     @Order(1)
-    public void testCreateJudge(Judge actualJudge) throws SQLException,
+    public void testCreateJudge(Judge actualJudge) throws
             InvalidEmailException, InvalidJudgeNameException {
         actualJudge = new Judge(actualJudge.getName(), actualJudge.getSurname(),
                 actualJudge.getEmail(), actualJudge.getPhoneNumber());
@@ -53,10 +52,11 @@ public class JudgeDAOTest {
     @ParameterizedTest
     @MethodSource("getTestJudges")
     @Order(2)
-    public void testUpdateJudge(Judge actualJudge) throws SQLException,
+    public void testUpdateJudge(Judge actualJudge) throws
             InvalidEmailException, InvalidJudgeNameException {
         int actualJudgeId = judgeSelector.selectJudgeIdByEmail(actualJudge.getEmail());
-        actualJudge = new Judge(actualJudgeId, "Vitalii", "Kemeniash", "Vkem@gmail.com", 456187950);
+        actualJudge = new Judge(actualJudgeId, "Vitalii", "Kemeniash",
+                "Vkem@gmail.com", 456187950);
         judgeCreateUpdate.update(actualJudge);
         Judge expectedJudge = judgeReadDelete.get(actualJudgeId);
         putParamsToTestMap("Actual", actualJudge);
@@ -67,7 +67,7 @@ public class JudgeDAOTest {
     @ParameterizedTest()
     @MethodSource("getTestJudges")
     @Order(3)
-    public void testDeleteJudge(Judge actualJudge) throws SQLException {
+    public void testDeleteJudge(Judge actualJudge) {
         int actualJudgeId = judgeSelector.selectJudgeIdByEmail(actualJudge.getEmail());
         judgeReadDelete.delete(actualJudgeId);
         Assert.assertNull(judgeReadDelete.get(actualJudgeId));
