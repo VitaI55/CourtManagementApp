@@ -14,7 +14,7 @@ public class DBConnect {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String JDBC_DB_URL = "jdbc:mysql://localhost:3306/db";
     static final String JDBC_USER = "root";
-    static final String JDBC_PASS = "frenkyPin4598";
+    static final String JDBC_PASS = "password";
 
     public DBConnect() {
         this.connection = null;
